@@ -1,13 +1,9 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
-
 
 
 @csrf_exempt
@@ -38,11 +34,11 @@ def getCustomer(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = CustomerSerializer(customer,context={'request': request})
+        serializer = CustomerSerializer(customer, context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = CustomerSerializer(customer, data=request.data,context={'request': request})
+        serializer = CustomerSerializer(customer, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -81,11 +77,11 @@ def getInvestment(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = InvestmentSerializer(investment,context={'request': request})
+        serializer = InvestmentSerializer(investment, context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = InvestmentSerializer(investment, data=request.data,context={'request': request})
+        serializer = InvestmentSerializer(investment, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -124,11 +120,11 @@ def getStock(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = StockSerializer(stock,context={'request': request})
+        serializer = StockSerializer(stock, context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = StockSerializer(stock, data=request.data,context={'request': request})
+        serializer = StockSerializer(stock, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -138,8 +134,8 @@ def getStock(request, pk):
         stock.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class RegisterView(generics.CreateAPIView):
-  queryset = User.objects.all()
-  permission_classes = (AllowAny,)
-  serializer_class = RegisterSerializer
 
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
